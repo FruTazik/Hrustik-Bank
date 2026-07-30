@@ -1,0 +1,414 @@
+/* ========================================================
+   БАНК ХРУСТИКОВ — общие стили
+   Палитра взята из логотипа банка:
+   --blue    #0068df  (основной, кнопка "Войти", акценты)
+   --orange  #ff901b  (шапка сайта, второстепенный акцент)
+   --cream   #ffeac7  (тёплый фон, подложки карточек)
+   --dark    #13120d  (текст, тёмные элементы)
+   ======================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+:root{
+  --blue: #0068df;
+  --blue-dark: #0052ad;
+  --orange: #ff901b;
+  --orange-dark: #e67e0e;
+  --cream: #ffeac7;
+  --dark: #13120d;
+  --white: #ffffff;
+  --red: #ef4444;
+  --green: #22c55e;
+  --yellow: #eab308;
+
+  --radius-pill: 999px;
+  --radius-card: 28px;
+  --radius-input: 14px;
+
+  --font-display: 'Fredoka', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+*, *::before, *::after{ box-sizing: border-box; }
+
+html, body{
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-body);
+  color: var(--dark);
+  background: var(--cream);
+}
+
+img{ max-width: 100%; display: block; }
+
+a{ color: inherit; text-decoration: none; }
+
+button{ font-family: inherit; cursor: pointer; border: none; }
+
+/* ---------- Шапка (общая для welcome и index) ---------- */
+
+.topbar{
+  position: relative;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+  padding: 0 24px;
+  background: var(--orange);
+}
+
+.topbar__logo{
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 20px;
+  color: var(--white);
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+}
+
+.topbar__actions{
+  display: flex;
+  gap: 10px;
+}
+
+@media (max-width: 480px){
+  .topbar{ padding: 0 14px; }
+  .topbar__logo{ font-size: 16px; }
+}
+
+/* ---------- Кнопки ---------- */
+
+.btn{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 15px;
+  padding: 12px 26px;
+  border-radius: var(--radius-pill);
+  transition: transform .15s ease, box-shadow .15s ease, opacity .15s ease;
+  white-space: nowrap;
+}
+.btn:active{ transform: scale(0.96); }
+
+.btn--sm{ padding: 9px 18px; font-size: 13px; }
+
+.btn-white{
+  background: var(--white);
+  color: var(--dark);
+  box-shadow: 0 2px 0 rgba(0,0,0,0.08);
+}
+.btn-white:hover{ box-shadow: 0 4px 14px rgba(0,0,0,0.15); }
+
+.btn-blue{
+  background: var(--blue);
+  color: var(--white);
+  box-shadow: 0 2px 0 var(--blue-dark);
+}
+.btn-blue:hover{ background: var(--blue-dark); box-shadow: 0 4px 14px rgba(0,104,223,0.35); }
+
+.btn-blue:disabled, .btn-white:disabled{
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn--block{ width: 100%; }
+
+/* ========================================================
+   WELCOME PAGE
+   ======================================================== */
+
+.welcome{
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.hero{
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 20% 15%, rgba(255,144,27,0.25), transparent 45%),
+    radial-gradient(circle at 85% 80%, rgba(0,104,223,0.20), transparent 50%),
+    var(--cream);
+}
+
+/* Разбросанные купюры на фоне */
+.bill{
+  position: absolute;
+  width: min(280px, 34vw);
+  border-radius: 14px;
+  box-shadow: 0 20px 40px rgba(19,18,13,0.25);
+  animation-name: float;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  will-change: transform;
+}
+
+.bill-50{  top: 10%;  left: 4%;   transform: rotate(-14deg); animation-duration: 7s; z-index: 1; }
+.bill-67{  bottom: 8%; left: 16%; transform: rotate(9deg);   animation-duration: 8.5s; animation-delay: .6s; z-index: 2; }
+.bill-100{ top: 6%;  right: 5%;  transform: rotate(11deg);  animation-duration: 9s;  animation-delay: .3s; z-index: 1; }
+.bill-500{ bottom: 6%; right: 3%; transform: rotate(-8deg); animation-duration: 7.8s; animation-delay: .9s; z-index: 2; }
+
+@keyframes float{
+  0%   { transform: translateY(0) rotate(var(--r, 0deg)); }
+  50%  { transform: translateY(-16px) rotate(calc(var(--r, 0deg) + 2deg)); }
+  100% { transform: translateY(0) rotate(var(--r, 0deg)); }
+}
+.bill-50  { --r: -14deg; }
+.bill-67  { --r: 9deg; }
+.bill-100 { --r: 11deg; }
+.bill-500 { --r: -8deg; }
+
+@media (max-width: 700px){
+  .bill{ width: 46vw; opacity: 0.55; }
+  .bill-50, .bill-100 { top: 6%; }
+  .bill-67, .bill-500 { bottom: 6%; }
+}
+
+.hero__card{
+  position: relative;
+  z-index: 5;
+  max-width: 560px;
+  width: min(92vw, 560px);
+  text-align: center;
+  padding: 44px 36px;
+  background: rgba(255,255,255,0.88);
+  backdrop-filter: blur(6px);
+  border-radius: var(--radius-card);
+  box-shadow: 0 30px 60px rgba(19,18,13,0.18);
+}
+
+.hero__title{
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(22px, 4vw, 30px);
+  line-height: 1.35;
+  color: var(--blue);
+  margin: 0 0 28px;
+}
+
+.hero__actions{
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.hero__actions .btn{ min-width: 160px; }
+
+/* ========================================================
+   AUTH PAGE (index.html)
+   ======================================================== */
+
+.auth-shell{
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background:
+    radial-gradient(circle at 10% 10%, rgba(255,144,27,0.12), transparent 40%),
+    radial-gradient(circle at 90% 90%, rgba(0,104,223,0.10), transparent 45%),
+    var(--cream);
+}
+
+.auth-topbar{
+  background: var(--orange);
+}
+
+.auth-wrap{
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 16px;
+}
+
+.auth-card{
+  width: min(94vw, 420px);
+  background: var(--white);
+  border-radius: var(--radius-card);
+  padding: 36px 30px 30px;
+  box-shadow: 0 24px 50px rgba(19,18,13,0.14);
+}
+
+.auth-card__title{
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 22px;
+  color: var(--dark);
+  margin: 0 0 6px;
+  text-align: center;
+}
+
+.auth-card__subtitle{
+  font-size: 14px;
+  color: rgba(19,18,13,0.55);
+  text-align: center;
+  margin: 0 0 26px;
+}
+
+.screen{ display: none; }
+.screen.is-active{ display: block; }
+
+.field{
+  margin-bottom: 16px;
+}
+
+.field label{
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: rgba(19,18,13,0.7);
+}
+
+.field input{
+  width: 100%;
+  padding: 13px 16px;
+  font-size: 15px;
+  font-family: var(--font-body);
+  border: 1.5px solid rgba(19,18,13,0.12);
+  border-radius: var(--radius-input);
+  outline: none;
+  background: #faf8f5;
+  transition: border-color .15s ease, background .15s ease;
+}
+.field input:focus{
+  border-color: var(--blue);
+  background: var(--white);
+}
+.field.has-error input{
+  border-color: var(--red);
+  background: #fff5f5;
+}
+
+.field__error{
+  min-height: 16px;
+  font-size: 12.5px;
+  color: var(--red);
+  margin-top: 6px;
+  display: none;
+}
+.field.has-error .field__error{ display: block; }
+
+/* индикатор силы пароля */
+.strength{
+  margin-top: 8px;
+}
+.strength-track{
+  height: 4px;
+  border-radius: 100px;
+  background: rgba(19,18,13,0.08);
+  overflow: hidden;
+}
+.strength-bar{
+  height: 100%;
+  width: 0%;
+  border-radius: 100px;
+  background: var(--red);
+  transition: width .35s ease, background .35s ease;
+}
+.strength-label{
+  font-size: 12px;
+  color: rgba(19,18,13,0.4);
+  margin-top: 5px;
+  min-height: 15px;
+}
+
+.divider{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 22px 0;
+  color: rgba(19,18,13,0.35);
+  font-size: 12.5px;
+}
+.divider::before, .divider::after{
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(19,18,13,0.12);
+}
+
+.btn-google{
+  width: 100%;
+  background: var(--white);
+  color: var(--dark);
+  border: 1.5px solid rgba(19,18,13,0.14);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: 14.5px;
+  padding: 12px 18px;
+  border-radius: var(--radius-input);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.btn-google img{ width: 20px; height: 20px; }
+.btn-google:hover{ background: #f5f3ef; }
+
+.switch-line{
+  text-align: center;
+  font-size: 13.5px;
+  margin-top: 20px;
+  color: rgba(19,18,13,0.6);
+}
+.link-blue{
+  color: var(--blue);
+  font-weight: 600;
+  text-decoration: underline;
+}
+
+/* ---------- OTP экран ---------- */
+
+.otp-boxes{
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin: 6px 0 20px;
+}
+.otp-boxes input{
+  width: 52px;
+  height: 60px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 700;
+  font-family: var(--font-display);
+  border: 1.5px solid rgba(19,18,13,0.14);
+  border-radius: var(--radius-input);
+  background: #faf8f5;
+  outline: none;
+}
+.otp-boxes input:focus{
+  border-color: var(--blue);
+  background: var(--white);
+}
+
+.otp-note{
+  text-align: center;
+  font-size: 13px;
+  color: rgba(19,18,13,0.55);
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+.otp-note b{ color: var(--dark); }
+
+.form-note{
+  text-align: center;
+  font-size: 13px;
+  margin-top: 14px;
+  min-height: 18px;
+}
+.form-note.error{ color: var(--red); }
+.form-note.success{ color: var(--green); }
