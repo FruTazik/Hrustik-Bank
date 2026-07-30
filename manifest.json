@@ -1,0 +1,25 @@
+{
+  "name": "Банк Хрустиков",
+  "short_name": "Хрустики",
+  "description": "Взгляд серьёзный, кот большой — хрусти уверенно душой!",
+  "start_url": "welcome.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#ffeac7",
+  "theme_color": "#ff901b",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "images/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "images/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
